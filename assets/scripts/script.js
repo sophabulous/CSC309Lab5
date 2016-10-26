@@ -35,8 +35,19 @@ $(document).ready(function() {
     // Send it using a post message to "addmsg"
     $("#submitmsg").click(function() {
         // TODO : complete this function according to the comments above
-        
-        
+        let message = $("#usermsg").val();
+        let name = $(".name").text();
+
+        $.ajax({
+            url: "/addmsg",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify( { "text": name + ": " + message} ),
+            success: function(response) {
+
+            }
+        });
         // one way of indicating that default browser actions should not
         // be taken after this handler completes.
         return false;
@@ -47,7 +58,19 @@ $(document).ready(function() {
     // The callback function on success will call updateUI
     // with the new value for name
     function getName() {
-        // TODO : complete this function according to the comments above
+
+        $.ajax({    
+            type: "GET",
+            url: "/name",           
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify( { "name": name }),
+            success: function(response){                    
+                var name = response['name'];
+                updateUI(name);
+            }
+
+        });
         
     }
     

@@ -29,7 +29,12 @@ var msgs = [];
 // and the value is the empty string if "name" is undefined in the 
 // session, or the value of the name field in the session object.
 function getName(req, res) {
-    // TODO : complete this function
+	if (req.session.name) {
+		return res.json({ name: req.session.name });
+	}
+	else {
+		return res.json({ name: '' });
+	}
 }
 
 // Add the username to the session
